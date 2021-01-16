@@ -6,8 +6,7 @@ const App = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path='/' component={Welcome} />
-        <Route exact path='/blog' render={()=><p>This is blog</p>} />
+        <Route path='/' component={Welcome} />
         <Redirect to='/'/>        
       </Switch>
     </Router>

@@ -27,11 +27,6 @@ const About = () => {
       </p>
 
       <p>
-        In 2019 I got opportunity to explore Data Analytics which helped me
-        better understand how it could help to make relevant decisions and have
-        been working on improving my skills.
-      </p>
-      <p>
         Right now I'm working at{" "}
         <a
           href="https://www.mobwizards.com/"
@@ -53,8 +48,8 @@ const About = () => {
       </p>
       <p>
         You can reach me at{" "}
-        <a href="mailto: abc@example.com" className={classes.links}>
-          bishal.udash@budash.net
+        <a href="mailto: me@budash.net" className={classes.links}>
+          me@budash.net
         </a>{" "}
       </p>
     </div>
