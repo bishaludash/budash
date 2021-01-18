@@ -5,6 +5,7 @@ import background from "../../assets/background.jpg";
 import Navbar from "./Navbar";
 import About from "./About";
 import Stack from './Stack'
+import Article from '../article/Article'
 
 const Welcome = () => {
   const useStyles = makeStyles((theme) => ({
@@ -17,8 +18,9 @@ const Welcome = () => {
     container: {
       margin: "0 auto",
       width: "60%",
-      paddingTop: "5%",
+      paddingTop: "3%",
       paddingLeft: "5%",
+      paddingBottom: "3%",
       [theme.breakpoints.between("xs", "sm")]: {
         width: "95%",
       },
@@ -34,7 +36,7 @@ const Welcome = () => {
         {/*welcome body*/}
         <Switch>
           <Route exact path='/' component={About} />
-          <Route exact path='/articles' render={()=><p>This is blog</p>} />
+          <Route exact path='/articles' component={Article} />
           <Route exact path='/projects' render={()=><p>This is blog</p>} />
           <Route exact path='/stack' component={Stack} />
           <Route exact path='/journal' render={()=><p>This is blog</p>} />

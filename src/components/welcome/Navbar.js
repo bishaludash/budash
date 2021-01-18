@@ -16,7 +16,7 @@ const Navbar = () => {
       </div>
 
       <div className={classes.navContainer}>
-      <Link to='/' className={classes.active}><h2>Bishal Udash</h2></Link>
+      <Link to='/' className={classes.author}><h2>Bishal Udash</h2></Link>
         <NavLink
           className={classes.navlinks}
           to="/articles"
@@ -77,7 +77,11 @@ const useStyles = makeStyles({
   },
   active: {
     color: "#000",
-    textDecoration: "none",
+    textDecoration: "underline",
   },
+  author:{
+    color: "#000",
+    textDecoration: "none",
+  }
 });
 
