@@ -6,6 +6,8 @@ import Navbar from "./Navbar";
 import About from "./About";
 import Stack from './Stack'
 import Article from '../article/Article'
+import Project from '../project/Project'
+import Journal from '../journal/Journal'
 
 const Welcome = () => {
   const useStyles = makeStyles((theme) => ({
@@ -37,9 +39,9 @@ const Welcome = () => {
         <Switch>
           <Route exact path='/' component={About} />
           <Route exact path='/articles' component={Article} />
-          <Route exact path='/projects' render={()=><p>This is blog</p>} />
+          <Route exact path='/projects' component={Project}/>
           <Route exact path='/stack' component={Stack} />
-          <Route exact path='/journal' render={()=><p>This is blog</p>} />
+          <Route exact path='/journal' component={Journal}/>
         </Switch>
       </div>
     </div>
