@@ -13,14 +13,14 @@ const Navbar = () => {
     <div>
       <Grid container spacing={3}>
         {/*Avatar grid*/}
-        <Grid item sm={6} md={2}>
+        <Grid item sm={6} md={3} lg={2}>
           <Link to="/">
             <Avatar className={classes.large} alt="Remy Sharp" src={Budash} />
           </Link>
         </Grid>
 
         {/*Navlink container*/}
-        <Grid item sm={12} md={10}>
+        <Grid item sm={12} md={9} lg={10}>
           <Grid item xs={10} sm={10}>
             <Link to="/" className={classes.author}>
               Bishal Udash
