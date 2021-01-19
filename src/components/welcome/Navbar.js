@@ -3,49 +3,63 @@ import { makeStyles } from "@material-ui/core/styles";
 import { NavLink, Link } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Budash from "../../assets/budash.jpg";
+import Grid from "@material-ui/core/Grid";
+import Brightness4Icon from "@material-ui/icons/Brightness4";
 
 const Navbar = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.navStyles}>
-      <div>
-        <Link to='/'>
-        <Avatar className={classes.large} alt="Remy Sharp" src={Budash} />
-        </Link>
-      </div>
+    <div>
+      <Grid container spacing={3}>
+        {/*Avatar grid*/}
+        <Grid item sm={6} md={2}>
+          <Link to="/">
+            <Avatar className={classes.large} alt="Remy Sharp" src={Budash} />
+          </Link>
+        </Grid>
 
-      <div className={classes.navContainer}>
-      <Link to='/' className={classes.author}><h2>Bishal Udash</h2></Link>
-        <NavLink
-          className={classes.navlinks}
-          to="/articles"
-          activeClassName={classes.active}
-        >
-          Articles
-        </NavLink>
-        <NavLink
-          className={classes.navlinks}
-          to="/projects"
-          activeClassName={classes.active}
-        >
-          Projects
-        </NavLink>
-        <NavLink
-          className={classes.navlinks}
-          to="/stack"
-          activeClassName={classes.active}
-        >
-          Stack
-        </NavLink>
-        <NavLink
-          className={classes.navlinks}
-          to="/journal"
-          activeClassName={classes.active}
-        >
-          Journal
-        </NavLink>
-      </div>
+        {/*Navlink container*/}
+        <Grid item sm={12} md={10}>
+          <Grid item xs={10} sm={10}>
+            <Link to="/" className={classes.author}>
+              Bishal Udash
+            </Link>
+            <Brightness4Icon />
+          </Grid>
+
+          <Grid item xs={10} sm={10} className={classes.navLinkContainer}>
+            <NavLink
+              className={classes.navlinks}
+              to="/articles"
+              activeClassName={classes.active}
+            >
+              Articles
+            </NavLink>
+            <NavLink
+              className={classes.navlinks}
+              to="/projects"
+              activeClassName={classes.active}
+            >
+              Projects
+            </NavLink>
+            <NavLink
+              className={classes.navlinks}
+              to="/stack"
+              activeClassName={classes.active}
+            >
+              Stack
+            </NavLink>
+            <NavLink
+              className={classes.navlinks}
+              to="/journal"
+              activeClassName={classes.active}
+            >
+              Journal
+            </NavLink>
+          </Grid>
+        </Grid>
+      </Grid>
     </div>
   );
 };
@@ -53,17 +67,12 @@ const Navbar = () => {
 export default Navbar;
 
 const useStyles = makeStyles({
-  navStyles: {
-    display: "flex",
-    flexWrap: "wrap",
-    marginBottom: "5%",
-  },
   large: {
     width: "120px",
     height: "120px",
   },
-  navContainer: {
-    marginLeft: "5%",
+  navLinkContainer: {
+    margin: "1rem 0",
   },
   navlinks: {
     marginRight: "20px",
@@ -79,9 +88,11 @@ const useStyles = makeStyles({
     color: "#000",
     textDecoration: "underline",
   },
-  author:{
+  author: {
     color: "#000",
+    fontSize: "xx-large",
+    fontWeight: "600",
     textDecoration: "none",
-  }
+    marginRight: "20px",
+  },
 });
-
