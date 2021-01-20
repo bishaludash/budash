@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Navbar from "./Navbar";
@@ -12,33 +12,29 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 const Welcome = () => {
+  const [darkMode, setDarkMode] = useState(true);
   const darkTheme = createMuiTheme({
     palette: {
-      type: "dark",
+      type: darkMode ? "dark" : "light",
     },
     typography: {
       fontFamily: "ubuntu",
-      fontSize: "18",
+      fontSize: 18,
     },
   });
-
-  const lightTheme = createMuiTheme({
-    palette: {
-      type: "light",
-    },
-    typography: {
-      fontFamily: "ubuntu",
-      fontSize: "18",
-    },
-  });
-
   const classes = useStyles();
+  /*function to change the theme*/
+  const changeTheme = () => {
+    console.log(darkMode)
+    setDarkMode(!darkMode);
+  };
+
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <div className={classes.container}>
         {/*welcome head*/}
-        <Navbar />
+        <Navbar changeTheme={changeTheme} darkMode={darkMode}/>
         {/*welcome body*/}
 
         <div className={classes.contentBody}>

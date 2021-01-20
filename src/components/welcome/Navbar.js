@@ -5,8 +5,10 @@ import Avatar from "@material-ui/core/Avatar";
 import Budash from "../../assets/budash.jpg";
 import Grid from "@material-ui/core/Grid";
 import Brightness4Icon from "@material-ui/icons/Brightness4";
+import Brightness7Icon from "@material-ui/icons/Brightness7";
+import { Typography } from "@material-ui/core";
 
-const Navbar = () => {
+const Navbar = ({ changeTheme, darkMode }) => {
   const classes = useStyles();
 
   return (
@@ -22,10 +24,21 @@ const Navbar = () => {
         {/*Navlink container*/}
         <Grid item sm={12} md={9} lg={10}>
           <Grid item xs={10} sm={10}>
-            <Link to="/" className={classes.author}>
+            <Typography
+              variant="h4"
+              component="h4"
+              gutterBottom
+              className={classes.author}
+            >
               Bishal Udash
-            </Link>
-            <Brightness4Icon />
+              <span style={{ cursor: "pointer", marginLeft: "20px" }}>
+                {darkMode ? (
+                  <Brightness7Icon onClick={changeTheme} />
+                ) : (
+                  <Brightness4Icon onClick={changeTheme} />
+                )}
+              </span>
+            </Typography>
           </Grid>
 
           <Grid item xs={10} sm={10} className={classes.navLinkContainer}>
@@ -78,21 +91,17 @@ const useStyles = makeStyles({
     marginRight: "20px",
     textDecoration: "none",
     fontWeight: "500",
-    color: "#654b4b",
+    color: "#676767",
     "&:hover": {
-      textDecoration: "underline",
-      color: "#000",
+      color: "#e57373",
     },
   },
   active: {
-    color: "#000",
-    textDecoration: "underline",
+    color: "#e57373",
   },
   author: {
-    color: "#000",
     fontSize: "xx-large",
     fontWeight: "600",
     textDecoration: "none",
-    marginRight: "20px",
   },
 });
