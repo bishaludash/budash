@@ -3,7 +3,7 @@ import React from 'react'
 const ShowJournal = () => {
   return (
     <div>
-      ShowJournal
+      Show Journal
     </div>
   )
 }

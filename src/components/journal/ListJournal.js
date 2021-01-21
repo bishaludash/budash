@@ -3,7 +3,7 @@ import React from 'react'
 const ListJournal = () => {
   return (
     <div>
-      ListJournal
+      List Journal
     </div>
   )
 }
