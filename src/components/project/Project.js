@@ -1,11 +1,16 @@
-import React from 'react'
+import React from "react";
+import { Switch, Route} from "react-router-dom";
 
-const Project = () => {
+import ListProject from './ListProject';
+import ShowProject from './ShowProject';
+
+const Article = () => {
   return (
-    <div>
-      Comming soon ...
-    </div>
-  )
-}
+    <Switch>
+      <Route exact path="/projects" component={ListProject} />
+      <Route exact path="/projects/:slug" component={ShowProject} />
+    </Switch>
+  );
+};
 
-export default Project
+export default Article;

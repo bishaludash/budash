@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useHistory } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Budash from "../../assets/budash.jpg";
 import Grid from "@material-ui/core/Grid";
@@ -10,6 +10,12 @@ import { Typography } from "@material-ui/core";
 
 const Navbar = ({ changeTheme, darkMode }) => {
   const classes = useStyles();
+  const history = useHistory();
+
+  const redirectHome = () =>{
+    console.log("go home");
+    history.push('/');
+  }
 
   return (
     <div>
@@ -28,9 +34,8 @@ const Navbar = ({ changeTheme, darkMode }) => {
               variant="h4"
               component="h4"
               gutterBottom
-              className={classes.author}
             >
-              Bishal Udash
+              <span className={classes.author} onClick = {redirectHome}>Bishal Udash</span>
               <span style={{ cursor: "pointer", marginLeft: "20px" }}>
                 {darkMode ? (
                   <Brightness7Icon onClick={changeTheme} />
@@ -102,6 +107,9 @@ const useStyles = makeStyles({
   author: {
     fontSize: "xx-large",
     fontWeight: "600",
-    textDecoration: "none",
+    "&:hover":{
+      color :'#e57373',
+      cursor :'pointer'
+    }
   },
 });

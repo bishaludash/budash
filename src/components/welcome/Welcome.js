@@ -16,6 +16,12 @@ const Welcome = () => {
   const darkTheme = createMuiTheme({
     palette: {
       type: darkMode ? "dark" : "light",
+      primary:{
+        main: darkMode ? "#fff" : "#000",
+      },
+      secondary:{
+        main: "#e57373",
+      }
     },
     typography: {
       fontFamily: "ubuntu",
@@ -40,10 +46,10 @@ const Welcome = () => {
         <div className={classes.contentBody}>
           <Switch>
             <Route exact path="/" component={About} />
-            <Route exact path="/articles" component={Article} />
-            <Route exact path="/projects" component={Project} />
+            <Route path="/articles" component={Article} />
+            <Route path="/projects" component={Project} />
             <Route exact path="/stack" component={Stack} />
-            <Route exact path="/journal" component={Journal} />
+            <Route path="/journal" component={Journal} />
           </Switch>
         </div>
       </div>
