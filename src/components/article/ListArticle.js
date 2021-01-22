@@ -51,7 +51,8 @@ const useStyles = makeStyles({
   },
   articleDate: {
     fontSize: "15px",
-    // fontWeight: "600",
+    fontWeight: "600",
+    color: "#676767",
   },
   links: {
     textDecoration: "none",
