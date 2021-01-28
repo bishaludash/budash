@@ -2,7 +2,6 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
 import Typography from "@material-ui/core/Typography";
 
 const ListJournal = () => {
