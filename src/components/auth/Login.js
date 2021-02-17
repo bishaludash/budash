@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "../../context/UserContext";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -17,7 +17,8 @@ import Container from "@material-ui/core/Container";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import axios from "axios";
 import { getValidationErrors } from "../../utils/FormValidator";
-import {useHistory} from 'react-router-dom';
+import { CheckLoggedinUser } from "../../utils/CheckLoggedinUser";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 const Login = () => {
   const classes = useStyles();
@@ -42,19 +43,26 @@ const Login = () => {
     password: "",
   };
   const url = `${process.env.REACT_APP_API_URL}/login`;
-  const [credential, setCredential] = useState({ email: "", password: "" });
+
+  const [loading, setLoading] = useState(true);
   const [user, setUser] = useContext(UserContext);
+  const [credential, setCredential] = useState({ email: "", password: "" });
   const [message, setMessage] = useState(false);
   const [error, setError] = useState(defaultError);
-  const history = useHistory();
+
+  useEffect(() => {
+    CheckLoggedinUser(setUser);
+    setLoading(false);
+    // eslint-disable-next-line
+  }, []);
 
   const attemptLogin = async (e) => {
     e.preventDefault();
     let res = await axios.post(url, credential);
     const { message, status, errors, data } = res.data;
-    setMessage(message);
 
     if (!status) {
+      setMessage(message);
       if (errors) {
         getValidationErrors(errors, setError);
       }
@@ -63,8 +71,20 @@ const Login = () => {
 
     setUser(data);
     localStorage.setItem("budash", JSON.stringify(data));
-    history.push('/dashboard');
+    window.location.href='/dashboard';
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (user !== null) {
+    return (
+      <Switch>
+        <Route path="/" render={() => <Redirect to="/dashboard"></Redirect>} />
+      </Switch>
+    );
+  }
 
   return (
     <ThemeProvider theme={darkTheme}>
