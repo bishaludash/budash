@@ -24,6 +24,9 @@ const Dashboard = () => {
   const Theme = createMuiTheme({
     palette: {
       type: "light",
+      primary: {
+        main:"#1976d2"
+      },
     },
     typography: {
       fontFamily: "ubuntu",
