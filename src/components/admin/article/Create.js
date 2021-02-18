@@ -1,11 +1,16 @@
-import React from 'react'
+import React from "react";
+import TextField from "@material-ui/core/TextField";
 
 const Create = () => {
   return (
     <div>
-      create
-    </div>
-  )
-}
+      <h2>Add Article</h2>
 
-export default Create
+      <form noValidate autoComplete="off">
+        <TextField id="standard-basic" label="Standard" />
+      </form>
+    </div>
+  );
+};
+
+export default Create;

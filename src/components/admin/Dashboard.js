@@ -11,6 +11,7 @@ import Board from "./layouts/Board";
 import Article from "./article/Article";
 import Project from "./project/Project";
 import Journal from "./journal/Journal";
+import SetBreadCrumbs from '../../utils/SetBreadCrumbs';
 
 const Dashboard = () => {
   const classes = useStyles();
@@ -60,6 +61,7 @@ const Dashboard = () => {
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
+          <SetBreadCrumbs/>
             <Switch>
               <Route exact path="/dashboard" component={Board} />
               <Route path="/dashboard/article" component={Article} />
@@ -87,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
   },
   container: {
-    paddingTop: theme.spacing(4),
+    paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(4),
   },
   paper: {

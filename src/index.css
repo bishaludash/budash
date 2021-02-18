@@ -10,6 +10,11 @@ code {
     monospace;
 }
 
+.td-none{
+  text-decoration: none;
+  color:inherit;
+}
+
 /* bootstrap helper class */
 .m-0 {
   margin: 0 !important;
