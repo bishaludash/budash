@@ -7,6 +7,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import Navbar from "./layouts/Navbar";
 import Board from "./layouts/Board";
+import Article from "./article/Article";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 const Dashboard = () => {
@@ -59,6 +60,7 @@ const Dashboard = () => {
           <Container maxWidth="lg" className={classes.container}>
             <Switch>
               <Route exact path="/dashboard" component={Board} />
+              <Route exact path="/dashboard/article" component={Article} />
               <Redirect to="/dashboard" />
             </Switch>
           </Container>
