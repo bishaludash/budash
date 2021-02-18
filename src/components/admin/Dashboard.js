@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { UserContext } from "../../context/UserContext";
@@ -8,7 +9,8 @@ import Container from "@material-ui/core/Container";
 import Navbar from "./layouts/Navbar";
 import Board from "./layouts/Board";
 import Article from "./article/Article";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import Project from "./project/Project";
+import Journal from "./journal/Journal";
 
 const Dashboard = () => {
   const classes = useStyles();
@@ -26,7 +28,7 @@ const Dashboard = () => {
     palette: {
       type: "light",
       primary: {
-        main:"#1976d2"
+        main: "#1976d2",
       },
     },
     typography: {
@@ -60,7 +62,9 @@ const Dashboard = () => {
           <Container maxWidth="lg" className={classes.container}>
             <Switch>
               <Route exact path="/dashboard" component={Board} />
-              <Route exact path="/dashboard/article" component={Article} />
+              <Route path="/dashboard/article" component={Article} />
+              <Route path="/dashboard/project" component={Project} />
+              <Route path="/dashboard/journal" component={Journal} />
               <Redirect to="/dashboard" />
             </Switch>
           </Container>

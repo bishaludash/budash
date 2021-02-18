@@ -12,7 +12,7 @@ import Divider from "@material-ui/core/Divider";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 
 import SimpleListMenu from "./Menu";
-import { mainListItems } from "./listItems";
+import { ListItems } from "./listItems";
 import Link from "@material-ui/core/Link";
 
 const Navbar = () => {
@@ -74,7 +74,7 @@ const Navbar = () => {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>
+        <List><ListItems/></List>
         {/*<Divider />
         <List>{secondaryListItems}</List>*/}
       </Drawer>

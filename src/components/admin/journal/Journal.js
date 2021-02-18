@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Create = () => {
+const Journal = () => {
   return (
     <div>
-      create
+      Journal
     </div>
   )
 }
 
-export default Create
+export default Journal

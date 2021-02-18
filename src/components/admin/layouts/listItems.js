@@ -1,63 +1,70 @@
-import React from 'react';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import PeopleIcon from '@material-ui/icons/People';
-import BarChartIcon from '@material-ui/icons/BarChart';
-import AssignmentIcon from '@material-ui/icons/Assignment';
+import React from "react";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import DashboardIcon from "@material-ui/icons/Dashboard";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import PeopleIcon from "@material-ui/icons/People";
+import BarChartIcon from "@material-ui/icons/BarChart";
+import { NavLink, useLocation } from "react-router-dom";
 
-export const mainListItems = (
+const textLink = {
+  color: "inherit",
+  textDecoration: "inherit",
+};
+
+export const ListItems = () => {
+  const { pathname } = useLocation();
+
+  return (
   <div>
-    <ListItem button>
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <ListItemText primary="Dashboard" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <ShoppingCartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Articles" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <PeopleIcon />
-      </ListItemIcon>
-      <ListItemText primary="Projects" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Journals" />
-    </ListItem>
+    <NavLink to="/dashboard" style={textLink} activeClassName="activeNavLinks">
+      <ListItem button selected={pathname ==="/dashboard" ? true : false}>
+        <ListItemIcon>
+          <DashboardIcon color={pathname ==="/dashboard" ? "primary" : "inherit"} />
+        </ListItemIcon>
+        <ListItemText primary="Dashboard" />
+      </ListItem>
+    </NavLink>
+
+    <NavLink
+      to="/dashboard/article"
+      style={textLink}
+      activeClassName="activeNavLinks"
+    >
+      <ListItem button selected={pathname.includes('/article') ? true : false}>
+        <ListItemIcon>
+          <ShoppingCartIcon color={pathname.includes('/article') ? "primary" : "inherit"}/>
+        </ListItemIcon>
+        <ListItemText primary="Articles" />
+      </ListItem>
+    </NavLink>
+
+    <NavLink
+      to="/dashboard/project"
+      style={textLink}
+      activeClassName="activeNavLinks"
+    >
+      <ListItem button selected={pathname.includes('/project') ? true : false}>
+        <ListItemIcon>
+          <PeopleIcon color={pathname.includes('/project') ? "primary" : "inherit"}/>
+        </ListItemIcon>
+        <ListItemText primary="Projects" />
+      </ListItem>
+    </NavLink>
+
+    <NavLink
+      to="/dashboard/journal"
+      style={textLink}
+      activeClassName="activeNavLinks"
+    >
+      <ListItem button selected={pathname.includes('/journal') ? true : false}>
+        <ListItemIcon>
+          <BarChartIcon color={pathname.includes('/journal') ? "primary" : "inherit"}/>
+        </ListItemIcon>
+        <ListItemText primary="Journals" />
+      </ListItem>
+    </NavLink>
   </div>
 );
-
-export const secondaryListItems = (
-  <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Current month" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Last quarter" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
-    </ListItem>
-  </div>
-);
+}
