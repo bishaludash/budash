@@ -7,6 +7,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import Navbar from "./layouts/Navbar";
 import Board from "./layouts/Board";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 const Dashboard = () => {
   const classes = useStyles();
@@ -19,6 +20,15 @@ const Dashboard = () => {
     setLoading(false);
     // eslint-disable-next-line
   }, []);
+
+  const Theme = createMuiTheme({
+    palette: {
+      type: "light",
+    },
+    typography: {
+      fontFamily: "ubuntu",
+    },
+  });
 
   if (loading) {
     return <div>Loading...</div>;
@@ -33,25 +43,25 @@ const Dashboard = () => {
   }
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
+    <ThemeProvider theme={Theme}>
+      <div className={classes.root}>
+        <CssBaseline />
 
-      {/*Navbar*/}
-      <Navbar />
+        {/*Navbar*/}
+        <Navbar />
 
-    {/*Content Wrapper*/}
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
-          
-        <Switch>
-          <Route exact path='/dashboard' component={Board}/>
-          <Redirect to='/dashboard'/>
-        </Switch>
-
-        </Container>
-      </main>
-    </div>
+        {/*Content Wrapper*/}
+        <main className={classes.content}>
+          <div className={classes.appBarSpacer} />
+          <Container maxWidth="lg" className={classes.container}>
+            <Switch>
+              <Route exact path="/dashboard" component={Board} />
+              <Redirect to="/dashboard" />
+            </Switch>
+          </Container>
+        </main>
+      </div>
+    </ThemeProvider>
   );
 };
 
@@ -76,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     overflow: "auto",
     flexDirection: "column",
-    minHeight: "50vh"
+    minHeight: "50vh",
   },
   fixedHeight: {
     height: 240,
