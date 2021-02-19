@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import {  unstable_createMuiStrictModeTheme as createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { UserContext } from "../../context/UserContext";
@@ -11,7 +11,8 @@ import Board from "./layouts/Board";
 import Article from "./article/Article";
 import Project from "./project/Project";
 import Journal from "./journal/Journal";
-import SetBreadCrumbs from '../../utils/SetBreadCrumbs';
+import SetBreadCrumbs from "../../utils/SetBreadCrumbs";
+import axios from "axios";
 
 const Dashboard = () => {
   const classes = useStyles();
@@ -49,6 +50,13 @@ const Dashboard = () => {
     );
   }
 
+  //Set Axios Global params.
+  axios.defaults.baseURL = `${process.env.REACT_APP_API_URL}`
+  axios.defaults.headers.common[
+    "Authorization"
+  ] = `${user.token_type} ${user.access_token}`;
+
+
   return (
     <ThemeProvider theme={Theme}>
       <div className={classes.root}>
@@ -61,7 +69,7 @@ const Dashboard = () => {
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
-          <SetBreadCrumbs/>
+            <SetBreadCrumbs />
             <Switch>
               <Route exact path="/dashboard" component={Board} />
               <Route path="/dashboard/article" component={Article} />
