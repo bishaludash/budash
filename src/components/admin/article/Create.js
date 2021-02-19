@@ -8,9 +8,11 @@ import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import axios from "axios";
+import { getValidationErrors } from "../../../utils/FormValidator";
+import SimpleSnackbar from "../../../utils/SimpleSnackbar";
 
 const Create = () => {
-  const url = '/article';
+  const url = "/article";
   const defaultArticle = {
     title: "",
     content: "",
@@ -18,16 +20,26 @@ const Create = () => {
   };
   const [article, setArticle] = useState(defaultArticle);
   const [error, setError] = useState({});
+  const [toast, setToast] = useState(false)
 
   const addArticle = async (e) => {
     e.preventDefault();
-    let res = await axios.get(url, article);
-    console.log(res.data);
+    let res = await axios.post(url, article);
+    const { data } = res;
+
+    if (!data.status) {
+      getValidationErrors(data.errors, setError);
+      return false;
+    }
+
+    setError({});
+    setArticle(defaultArticle);
+    setToast(data.message);
   };
   return (
     <div>
       <h2>Add Article</h2>
-
+      <SimpleSnackbar toast={toast} setToast={setToast}/>
       <form noValidate autoComplete="off" onSubmit={addArticle}>
         <Grid container spacing={3}>
           {/*title*/}
@@ -89,7 +101,7 @@ const Create = () => {
           </Grid>
         </Grid>
 
-        <Button type="submit" variant="contained" color="primary" size="small">
+        <Button type="submit" variant="contained" className="mt-3" color="primary" size="small">
           Submit
         </Button>
       </form>

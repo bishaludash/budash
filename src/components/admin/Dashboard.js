@@ -11,7 +11,7 @@ import Board from "./layouts/Board";
 import Article from "./article/Article";
 import Project from "./project/Project";
 import Journal from "./journal/Journal";
-import SetBreadCrumbs from "../../utils/SetBreadCrumbs";
+import SetBreadCrumbs from "./layouts/SetBreadCrumbs";
 import axios from "axios";
 
 const Dashboard = () => {
@@ -51,7 +51,7 @@ const Dashboard = () => {
   }
 
   //Set Axios Global params.
-  axios.defaults.baseURL = `${process.env.REACT_APP_API_URL}`
+  axios.defaults.baseURL = `${process.env.REACT_APP_API_URL}`;
   axios.defaults.headers.common[
     "Authorization"
   ] = `${user.token_type} ${user.access_token}`;

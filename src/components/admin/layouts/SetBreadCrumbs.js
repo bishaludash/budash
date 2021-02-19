@@ -3,11 +3,17 @@ import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import {Link} from 'react-router-dom';
 
 const SetBreadCrumbs = () => {
-  let pathname = window.location.pathname;
-  pathname = pathname.split("/");
+  let url = window.location.pathname;
+  let pathname = url.split("/");
 
   // remove the first item in arrary
-  const [, ...crumb] = pathname;
+  let [, ...crumb] = pathname;
+
+  // Remove slugs from bread crumbs
+  if (url.includes("_")) {
+    const itemlength = crumb.length;
+    crumb = crumb.slice(0,itemlength-1);
+  }
   
   return (
     <div className="mb-2">
