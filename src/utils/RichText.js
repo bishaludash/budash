@@ -9,7 +9,7 @@ const  modules = {
       [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
       [{ 'align': [] }],
       [{ 'color': [] }, { 'background': [] }],
-      ['link', 'image'],
+      ['link', 'image', 'video'],
       ['blockquote', 'code-block'],
       ['clean']
     ],
@@ -21,8 +21,8 @@ const  formats = [
     'list', 'bullet', 'indent',
     'align',
     'color','background',
+    'link', 'image','video',
     'blockquote', 'code-block',
-    'link', 'image'
   ];
 
 const RichText = ({value, setValue}) => {

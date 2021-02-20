@@ -12,6 +12,7 @@ import axios from "axios";
 import { getValidationErrors } from "../../../utils/FormValidator";
 import RichText from "../../../utils/RichText";
 import SimpleSnackbar from "../../../utils/SimpleSnackbar";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const Edit = () => {
   const { slug } = useParams();
@@ -24,6 +25,7 @@ const Edit = () => {
 
   const [article, setArticle] = useState(defaultArticle);
   const [loading, setLoading] = useState(true);
+  const [progress, setProgress] = useState(false);
   const [error, setError] = useState({});
   const [toast, setToast] = useState(false);
 
@@ -40,8 +42,10 @@ const Edit = () => {
 
   const updateArticle = async (e) => {
     e.preventDefault();
+    setProgress(true);
     if (article.content.replace(/<(.|\n)*?>/g, "").trim().length === 0) {
       setError({...error, content:"Content cannot be empty"});
+      setProgress(false);
       return false;
     }
 
@@ -50,10 +54,12 @@ const Edit = () => {
 
     if (!data.status) {
       getValidationErrors(data.errors, setError);
+      setProgress(false);
       return false;
     }
 
     setError({});
+    setProgress(false);
     setToast(data.message);
   };
 
@@ -129,7 +135,7 @@ const Edit = () => {
           color="primary"
           size="small"
         >
-          Update
+          Update {progress ? <CircularProgress className="progress"/> : ""}
         </Button>
       </form>
     </div>
