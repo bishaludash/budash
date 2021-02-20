@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -14,42 +13,22 @@ import RichText from "../../../utils/RichText";
 import SimpleSnackbar from "../../../utils/SimpleSnackbar";
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-const Edit = () => {
-  const { slug } = useParams();
-  let url = `/project/${slug}`;
+const Create = () => {
+  const url = "/project";
   const defaultProject = {
     title: "",
     content: "",
     status: "",
   };
-
   const [project, setProject] = useState(defaultProject);
-  const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(false);
   const [error, setError] = useState({});
   const [toast, setToast] = useState(false);
 
-  useEffect(() => {
-    getProject();
-    // eslint-disable-next-line
-  }, []);
-
-  const getProject = async () => {
-    let res = await axios.get(url);
-    setProject(res.data);
-    setLoading(false);
-  };
-
-  const updateProject = async (e) => {
+  const addProject = async (e) => { 
     e.preventDefault();
     setProgress(true);
-    if (project.content.replace(/<(.|\n)*?>/g, "").trim().length === 0) {
-      setError({...error, content:"Content cannot be empty"});
-      setProgress(false);
-      return false;
-    }
-
-    let res = await axios.put(url, project);
+    let res = await axios.post(url, project);
     const { data } = res;
 
     if (!data.status) {
@@ -59,19 +38,15 @@ const Edit = () => {
     }
 
     setError({});
+    setProject(defaultProject);
     setProgress(false);
     setToast(data.message);
   };
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div>
-      <h2>Edit Project</h2>
+      <h2>Add Project</h2>
       <SimpleSnackbar toast={toast} setToast={setToast} />
-      <form noValidate autoComplete="off" onSubmit={updateProject}>
+      <form noValidate autoComplete="off" onSubmit={addProject}>
         <Grid container spacing={3}>
           {/*title*/}
           <Grid item xs={12}>
@@ -135,11 +110,11 @@ const Edit = () => {
           color="primary"
           size="small"
         >
-          Update {progress ? <CircularProgress className="progress"/> : ""}
+          Submit {progress ? <CircularProgress className="progress"/> : ""}
         </Button>
       </form>
     </div>
   );
 };
 
-export default Edit;
+export default Create;

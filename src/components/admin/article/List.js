@@ -69,7 +69,7 @@ const List = () => {
       {/*Material table list*/}
       <SimpleSnackbar toast={toast} setToast={setToast} />
       <MaterialTable
-        title="Project"
+        title="Articles"
         columns={columns}
         data={async (query) => {
           let urlPaginate = `${url}?page=${query.page + 1}&per_page=${
