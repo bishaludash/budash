@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import axios from "axios";
 import { getValidationErrors } from "../../../utils/FormValidator";
+import RichText from "../../../utils/RichText";
 import SimpleSnackbar from "../../../utils/SimpleSnackbar";
 
 const Create = () => {
@@ -19,11 +20,13 @@ const Create = () => {
     status: "",
   };
   const [article, setArticle] = useState(defaultArticle);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState({});
-  const [toast, setToast] = useState(false)
+  const [toast, setToast] = useState(false);
 
   const addArticle = async (e) => {
     e.preventDefault();
+    setLoading(true);
     let res = await axios.post(url, article);
     const { data } = res;
 
@@ -34,16 +37,17 @@ const Create = () => {
 
     setError({});
     setArticle(defaultArticle);
+    setLoading(false);
     setToast(data.message);
   };
   return (
     <div>
       <h2>Add Article</h2>
-      <SimpleSnackbar toast={toast} setToast={setToast}/>
+      <SimpleSnackbar toast={toast} setToast={setToast} />
       <form noValidate autoComplete="off" onSubmit={addArticle}>
         <Grid container spacing={3}>
           {/*title*/}
-          <Grid item xs={10} sm={8}>
+          <Grid item xs={12}>
             <TextField
               required
               id="outlined-required"
@@ -60,20 +64,16 @@ const Create = () => {
           </Grid>
 
           {/*content*/}
-          <Grid item xs={10} sm={10}>
-            <TextField
-              required
-              id="outlined-required"
-              name="content"
-              fullWidth
-              label="Content"
+          <Grid item xs={12}>
+            <InputLabel
+              id="rich-text"
+              className="mb-2"
               error={error.content ? true : false}
-              helperText={error.content ?? ""}
-              value={article.content}
-              onChange={(e) =>
-                setArticle({ ...article, content: e.target.value })
-              }
-            />
+            >
+              Content *
+            </InputLabel>
+            <FormHelperText error>{error.content ?? ""}</FormHelperText>
+            <RichText value={article} setValue={setArticle} />
           </Grid>
 
           {/*Status*/}
@@ -101,7 +101,13 @@ const Create = () => {
           </Grid>
         </Grid>
 
-        <Button type="submit" variant="contained" className="mt-3" color="primary" size="small">
+        <Button
+          type="submit"
+          variant="contained"
+          className="mt-3"
+          color="primary"
+          size="small"
+        >
           Submit
         </Button>
       </form>

@@ -1,11 +1,11 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import MaterialTable, { MTableToolbar } from "material-table";
 import { Link, useRouteMatch, useHistory } from "react-router-dom";
 import { Paper } from "@material-ui/core";
 import axios from "axios";
 import SimpleSnackbar from "../../../utils/SimpleSnackbar";
-import Chip from '@material-ui/core/Chip';
+import Chip from "@material-ui/core/Chip";
 
 const List = () => {
   const url = "/article";
@@ -27,7 +27,7 @@ const List = () => {
       data: data.data,
       page: data.current_page - 1,
       totalCount: data.total,
-    }
+    };
   };
 
   const deleteArticle = async (slug) => {
@@ -41,13 +41,16 @@ const List = () => {
       title: "Article title",
       field: "title",
       render: (rowData) => (
-        <Link to={`/article/${rowData.slug_title}`} >
+        <a href={`/articles/${rowData.slug_title}`} target="_blank" rel="noreferrer">
           {rowData.title}
-        </Link>
+        </a>
       ),
     },
-    { title: "Content", field: "content" },
-    { title: "Status", field: "status", render:(rowData) =>(<Chip label={rowData.status} />) },
+    {
+      title: "Status",
+      field: "status",
+      render: (rowData) => <Chip label={rowData.status} />,
+    },
     {
       title: "Created At",
       field: "created_at",
@@ -58,13 +61,13 @@ const List = () => {
   ];
 
   if (message) {
-    return <div>{message}</div>
+    return <div>{message}</div>;
   }
 
   return (
     <div>
       {/*Material table list*/}
-      <SimpleSnackbar toast={toast} setToast={setToast}/>
+      <SimpleSnackbar toast={toast} setToast={setToast} />
       <MaterialTable
         title="Project"
         columns={columns}
@@ -81,10 +84,10 @@ const List = () => {
               <MTableToolbar {...props} />
               <div style={{ padding: "0px 10px", marginBottom: "5px" }}>
                 <Link to={`${match.path}/create`} className="td-none">
-          <Button variant="contained" size="small" color="primary">
-            Create Article
-          </Button>
-        </Link>
+                  <Button variant="contained" size="small" color="primary">
+                    Create Article
+                  </Button>
+                </Link>
               </div>
             </div>
           ),
@@ -95,12 +98,12 @@ const List = () => {
             tooltip: "Edit Project",
             onClick: (event, rowData) =>
               history.push(`${match.path}/edit/${rowData.slug_title}`),
-          }
+          },
         ]}
-         editable={{
-          onRowDelete: async (oldData) =>{
+        editable={{
+          onRowDelete: async (oldData) => {
             await deleteArticle(oldData.slug_title);
-          }
+          },
         }}
         options={{
           actionsColumnIndex: -1,

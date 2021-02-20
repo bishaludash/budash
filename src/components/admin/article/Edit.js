@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -9,12 +10,11 @@ import Button from "@material-ui/core/Button";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import axios from "axios";
 import { getValidationErrors } from "../../../utils/FormValidator";
+import RichText from "../../../utils/RichText";
 import SimpleSnackbar from "../../../utils/SimpleSnackbar";
 
-import {useParams} from 'react-router-dom';
-
 const Edit = () => {
-  const {slug} = useParams();
+  const { slug } = useParams();
   let url = `/article/${slug}`;
   const defaultArticle = {
     title: "",
@@ -23,8 +23,9 @@ const Edit = () => {
   };
 
   const [article, setArticle] = useState(defaultArticle);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState({});
-  const [toast, setToast] = useState(false)
+  const [toast, setToast] = useState(false);
 
   useEffect(() => {
     getArticle();
@@ -34,11 +35,17 @@ const Edit = () => {
   const getArticle = async () => {
     let res = await axios.get(url);
     setArticle(res.data);
+    setLoading(false);
   };
 
-  const addArticle = async (e) => {
+  const updateArticle = async (e) => {
     e.preventDefault();
-    let res = await axios.post(url, article);
+    if (article.content.replace(/<(.|\n)*?>/g, "").trim().length === 0) {
+      setError({...error, content:"Content cannot be empty"});
+      return false;
+    }
+
+    let res = await axios.put(url, article);
     const { data } = res;
 
     if (!data.status) {
@@ -47,17 +54,21 @@ const Edit = () => {
     }
 
     setError({});
-    setArticle(defaultArticle);
     setToast(data.message);
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <h2>Edit Article</h2>
-      <SimpleSnackbar toast={toast} setToast={setToast}/>
-      <form noValidate autoComplete="off" onSubmit={addArticle}>
+      <SimpleSnackbar toast={toast} setToast={setToast} />
+      <form noValidate autoComplete="off" onSubmit={updateArticle}>
         <Grid container spacing={3}>
           {/*title*/}
-          <Grid item xs={10} sm={8}>
+          <Grid item xs={12}>
             <TextField
               required
               id="outlined-required"
@@ -74,20 +85,16 @@ const Edit = () => {
           </Grid>
 
           {/*content*/}
-          <Grid item xs={10} sm={10}>
-            <TextField
-              required
-              id="outlined-required"
-              name="content"
-              fullWidth
-              label="Content"
+          <Grid item xs={12}>
+            <InputLabel
+              id="rich-text"
+              className="mb-2"
               error={error.content ? true : false}
-              helperText={error.content ?? ""}
-              value={article.content}
-              onChange={(e) =>
-                setArticle({ ...article, content: e.target.value })
-              }
-            />
+            >
+              Content *
+            </InputLabel>
+            <FormHelperText error>{error.content ?? ""}</FormHelperText>
+            <RichText value={article} setValue={setArticle} />
           </Grid>
 
           {/*Status*/}
@@ -115,7 +122,13 @@ const Edit = () => {
           </Grid>
         </Grid>
 
-        <Button type="submit" variant="contained" className="mt-3" color="primary" size="small">
+        <Button
+          type="submit"
+          variant="contained"
+          className="mt-3"
+          color="primary"
+          size="small"
+        >
           Update
         </Button>
       </form>
