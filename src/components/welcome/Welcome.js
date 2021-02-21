@@ -7,6 +7,7 @@ import Stack from "./Stack";
 import Article from "../article/Article";
 import Project from "../project/Project";
 import Journal from "../journal/Journal";
+import axios from 'axios';
 
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -34,6 +35,9 @@ const Welcome = () => {
     console.log(darkMode)
     setDarkMode(!darkMode);
   };
+
+  // set default URL for axios.
+  axios.defaults.baseURL = `${process.env.REACT_APP_API_URL}`;
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -65,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
     width: "70%",
     padding: "5%",
     [theme.breakpoints.down("sm")]: {
-      width: "90%",
+      width: "100%",
     },
   },
   contentBody: {

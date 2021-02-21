@@ -1,44 +1,103 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
 import Typography from "@material-ui/core/Typography";
+import axios from "axios";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Pagination from "@material-ui/lab/Pagination";
 
 const ListArticle = () => {
   const classes = useStyles();
+  let url = "/article";
+  const [articles, setArticles] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState(1)
+
+  useEffect(() => {
+    getArticles(url);
+    // eslint-disable-next-line
+  }, []);
+
+  const getArticles = async (url) => {
+    let res = await axios.get(url);
+    const { data, status, message } = res.data;
+
+    if (!status) {
+      setError(message);
+      setLoading(false);
+      return false;
+    }
+    setCount(data.last_page);
+    setArticles(data);
+    setLoading(false);
+  };
+
+
+  const handlePaginate = async (e, value) => {
+    e.preventDefault();
+    setPage(value);
+    let paginateUrl = `${url}?page=${value}&per_page=10`;
+    console.log(paginateUrl);
+    await getArticles(paginateUrl);
+  };
+
+  if (loading) {
+    return (
+      <center>
+        <CircularProgress className="mt-5" />
+      </center>
+    );
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
   return (
     <Fragment>
       {/*Article start*/}
-      <div className={classes.article}>
-        <div className={classes.articleDate}>
-          11 JANUARY 2021 / POSTGRESQL, PERFORMANCE, SQL{" "}
+      {articles.data.map((item, key) => (
+        <div className={classes.article} key={key}>
+          <div className={classes.articleDate}>
+            {new Date(item.created_at).toDateString()}
+            {/*
+            / POSTGRESQL, PERFORMANCE, SQL{" "}
+            */}
+          </div>
+
+          <Link to={`/articles/${item.slug_title}`} className={classes.links}>
+            <Typography variant="h5" color="primary">
+              {item.title}
+            </Typography>
+          </Link>
+
+          <Typography variant="body2" gutterBottom>
+            There is a type of index you are probably not using, and may have
+            never even heard of. It is wildly unpopular, and until a few
+            PostgreSQL versions ago it was highly discouraged and borderline
+            unusable, but under some circumstances it can out-perform even a
+            B-Tree index.
+          </Typography>
+
+          <Link to={`/articles/${item.slug_title}`} className={classes.links}>
+            <Typography gutterBottom color="primary">
+              Read this article
+              <ArrowRightAltIcon
+                variant="overline"
+                style={{ marginBottom: "-10px", marginLeft: "10px" }}
+              />
+            </Typography>
+          </Link>
         </div>
+      ))}
 
-        <Link to="/articles/article-slug" className={classes.links}>
-          <Typography variant="h5" color="primary">
-            Re-Introducing Hash Indexes in PostgreSQL
-          </Typography>
-        </Link>
-
-        <Typography variant="body2" gutterBottom>
-          There is a type of index you are probably not using, and may have
-          never even heard of. It is wildly unpopular, and until a few
-          PostgreSQL versions ago it was highly discouraged and borderline
-          unusable, but under some circumstances it can out-perform even a
-          B-Tree index.
-        </Typography>
-
-        <Link to="/articles/article-slug" className={classes.links}>
-          <Typography gutterBottom color="primary">
-            Read this article
-            <ArrowRightAltIcon
-              variant="overline"
-              style={{ marginBottom: "-10px", marginLeft: "10px" }}
-            />
-          </Typography>
-        </Link>
-      </div>
       {/*Article End*/}
+
+      {/*Paginate*/}
+      <Pagination count={count} page={page} onChange={handlePaginate} />
     </Fragment>
   );
 };

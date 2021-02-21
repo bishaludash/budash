@@ -1,15 +1,56 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import Typography from "@material-ui/core/Typography";
 import Chip from "@material-ui/core/Chip";
 import { makeStyles } from "@material-ui/core/styles";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import parse from "html-react-parser";
 
 const ShowArticle = () => {
   const classes = useStyles();
+  const { slug } = useParams();
+  const url = `/article/${slug}`;
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState();
+  const [article, setArticle] = useState({});
+
+  useEffect(() => {
+    getArticleBySlug();
+    // eslint-disable-next-line
+  }, []);
+
+  const getArticleBySlug = async () => {
+    let res = await axios.get(url);
+    const { data, status, message } = res.data;
+
+    if (!status) {
+      setError(message);
+      setLoading(false);
+      return false;
+    }
+
+    setArticle(data);
+    setLoading(false);
+  };
+
+  if (loading) {
+    return (
+      <center>
+        <CircularProgress className="mt-5" />
+      </center>
+    );
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
   return (
     <Fragment>
       {/*title*/}
       <Typography variant="h5" color="primary">
-        Re-Introducing Hash Indexes in PostgreSQL
+        {article.title}
       </Typography>
 
       {/*Date and tags*/}
@@ -18,18 +59,21 @@ const ShowArticle = () => {
         display="block"
         style={{ marginBottom: "2rem" }}
       >
-        11 JANUARY 2021 /
-        {["POSTGRESQL", "PERFORMANCE", "SQL"].map((item) => (
-          <Chip size ="small" label={item} color="secondary" className={classes.pills}/>
+        {new Date(article.created_at).toDateString()}
+        {[].map((item, key) => (
+          <Chip
+            key={key}
+            size="small"
+            label={item}
+            color="secondary"
+            className={classes.pills}
+          />
         ))}
       </Typography>
 
       {/*content*/}
-      <Typography variant="body2" gutterBottom>
-        There is a type of index you are probably not using, and may have never
-        even heard of. It is wildly unpopular, and until a few PostgreSQL
-        versions ago it was highly discouraged and borderline unusable, but
-        under some circumstances it can out-perform even a B-Tree index.
+      <Typography variant="body2" component="div" gutterBottom>
+        {parse(article.content)}
       </Typography>
     </Fragment>
   );
@@ -38,8 +82,8 @@ const ShowArticle = () => {
 export default ShowArticle;
 
 const useStyles = makeStyles({
-  pills:{
-    fontSize : '.9rem',
-    margin : '0 5px'
-  }
-})
+  pills: {
+    fontSize: ".9rem",
+    margin: "0 5px",
+  },
+});
