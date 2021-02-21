@@ -1,5 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import GitHubIcon from "@material-ui/icons/GitHub";
+import LinkedInIcon from "@material-ui/icons/LinkedIn";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -52,6 +54,23 @@ const About = () => {
           me@budash.net
         </a>{" "}
       </p>
+
+      <a
+        href="https://www.linkedin.com/in/bishal-udash-04a07215a/"
+        target="_blank"
+        rel="noreferrer"
+        className={`${classes.links} mr-2`}
+      >
+        <LinkedInIcon />
+      </a>
+      <a
+        href="https://github.com/bishaludas"
+        target="_blank"
+        rel="noreferrer"
+        className={classes.links}
+      >
+        <GitHubIcon />
+      </a>
     </div>
   );
 };
