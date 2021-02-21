@@ -12,7 +12,7 @@ import axios from "axios";
 import { getValidationErrors } from "../../../utils/FormValidator";
 import RichText from "../../../utils/RichText";
 import SimpleSnackbar from "../../../utils/SimpleSnackbar";
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const Edit = () => {
   const { slug } = useParams();
@@ -28,6 +28,7 @@ const Edit = () => {
   const [progress, setProgress] = useState(false);
   const [error, setError] = useState({});
   const [toast, setToast] = useState(false);
+  const [message, setMessage] = useState(null);
 
   useEffect(() => {
     getJournal();
@@ -36,7 +37,13 @@ const Edit = () => {
 
   const getJournal = async () => {
     let res = await axios.get(url);
-    setJournal(res.data);
+    const { data, status, message } = res.data;
+
+    if (!status) {
+      setMessage(message);
+    }
+
+    setJournal(data);
     setLoading(false);
   };
 
@@ -44,7 +51,7 @@ const Edit = () => {
     e.preventDefault();
     setProgress(true);
     if (journal.content.replace(/<(.|\n)*?>/g, "").trim().length === 0) {
-      setError({...error, content:"Content cannot be empty"});
+      setError({ ...error, content: "Content cannot be empty" });
       setProgress(false);
       return false;
     }
@@ -65,6 +72,10 @@ const Edit = () => {
 
   if (loading) {
     return <div>Loading...</div>;
+  }
+
+  if (message) {
+    return <div>{message}</div>;
   }
 
   return (
@@ -135,7 +146,7 @@ const Edit = () => {
           color="primary"
           size="small"
         >
-          Update {progress ? <CircularProgress className="progress"/> : ""}
+          Update {progress ? <CircularProgress className="progress" /> : ""}
         </Button>
       </form>
     </div>

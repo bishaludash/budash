@@ -97,7 +97,11 @@ const ListArticle = () => {
       {/*Article End*/}
 
       {/*Paginate*/}
-      <Pagination count={count} page={page} onChange={handlePaginate} />
+      {count > 1 ? (
+        <Pagination count={count} page={page} onChange={handlePaginate} />
+      ) : (
+        ""
+      )}
     </Fragment>
   );
 };
