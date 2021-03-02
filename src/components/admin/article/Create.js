@@ -17,6 +17,7 @@ const Create = () => {
   const url = "/article";
   const defaultArticle = {
     title: "",
+    summary: "",
     content: "",
     status: "",
   };
@@ -64,6 +65,22 @@ const Create = () => {
               }
             />
           </Grid>
+
+          <Grid item xs={12}>
+          <TextField
+              required
+              id="outlined-required"
+              name="summary"
+              fullWidth
+              label="Summary"
+              error={error.summary ? true : false}
+              helperText={error.summary ?? ""}
+              value={article.summary}
+              onChange={(e) =>
+                setArticle({ ...article, summary: e.target.value })
+              }
+            />
+            </Grid>
 
           {/*content*/}
           <Grid item xs={12}>

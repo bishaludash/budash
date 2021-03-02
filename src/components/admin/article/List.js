@@ -41,7 +41,11 @@ const List = () => {
       title: "Article title",
       field: "title",
       render: (rowData) => (
-        <a href={`/articles/${rowData.slug_title}`} target="_blank" rel="noreferrer">
+        <a
+          href={`/articles/${rowData.slug_title}`}
+          target="_blank"
+          rel="noreferrer"
+        >
           {rowData.title}
         </a>
       ),
@@ -74,7 +78,7 @@ const List = () => {
         data={async (query) => {
           let urlPaginate = `${url}?page=${query.page + 1}&per_page=${
             query.pageSize
-          }`;
+          }&all=yes`;
           return await getArticles(urlPaginate);
         }}
         components={{

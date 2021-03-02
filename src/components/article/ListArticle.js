@@ -75,11 +75,7 @@ const ListArticle = () => {
           </Link>
 
           <Typography variant="body2" gutterBottom>
-            There is a type of index you are probably not using, and may have
-            never even heard of. It is wildly unpopular, and until a few
-            PostgreSQL versions ago it was highly discouraged and borderline
-            unusable, but under some circumstances it can out-perform even a
-            B-Tree index.
+            {item.summary}
           </Typography>
 
           <Link to={`/articles/${item.slug_title}`} className={classes.links}>

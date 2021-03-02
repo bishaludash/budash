@@ -74,7 +74,7 @@ const List = () => {
         data={async (query) => {
           let urlPaginate = `${url}?page=${query.page + 1}&per_page=${
             query.pageSize
-          }`;
+          }&all=yes`;
           return await getProjects(urlPaginate);
         }}
         components={{

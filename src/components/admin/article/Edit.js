@@ -19,6 +19,7 @@ const Edit = () => {
   let url = `/article/${slug}`;
   const defaultArticle = {
     title: "",
+    summary:"",
     content: "",
     status: "",
   };
@@ -97,6 +98,22 @@ const Edit = () => {
               value={article.title}
               onChange={(e) =>
                 setArticle({ ...article, title: e.target.value })
+              }
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextField
+              required
+              id="outlined-required"
+              name="summary"
+              fullWidth
+              label="Summary"
+              error={error.summary ? true : false}
+              helperText={error.summary ?? ""}
+              value={article.summary ?? ""}
+              onChange={(e) =>
+                setArticle({ ...article, summary: e.target.value })
               }
             />
           </Grid>
