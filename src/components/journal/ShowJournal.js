@@ -72,9 +72,11 @@ const ShowJournal = () => {
       </Typography>
 
       {/*content*/}
-      <Typography variant="body2" component="div" gutterBottom>
-        {parse(journal.content)}
-      </Typography>
+      <article>
+        <Typography variant="body2" component="div" gutterBottom>
+          {parse(journal.content)}
+        </Typography>
+      </article>
     </Fragment>
   );
 };

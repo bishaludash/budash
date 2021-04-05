@@ -72,9 +72,11 @@ const ShowProject = () => {
       </Typography>
 
       {/*content*/}
-      <Typography variant="body2" component="div" gutterBottom>
-        {parse(project.content)}
-      </Typography>
+      <article>
+        <Typography variant="body2" component="div" gutterBottom>
+          {parse(project.content)}
+        </Typography>
+      </article>
     </Fragment>
   );
 };

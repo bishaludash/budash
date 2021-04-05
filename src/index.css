@@ -22,12 +22,16 @@ code {
   margin-left: 10px;
 }
 
+article a{
+  color:#66a3e0;
+}
+
 .ql-editor{
   min-height: 50vh;
 }
 
 img{
-  width: 100%;
+  max-width: 100%;
 }
 
 p,h1,h2{

@@ -54,27 +54,19 @@ const ShowArticle = () => {
       </Typography>
 
       {/*Date and tags*/}
-      <Typography
-        variant="caption"
-        display="block"
-        style={{ marginBottom: "2rem" }}
-      >
+      <Typography variant="caption" display="block" style={{ marginBottom: "2rem" }}>
         {new Date(article.created_at).toDateString()}
         {[].map((item, key) => (
-          <Chip
-            key={key}
-            size="small"
-            label={item}
-            color="secondary"
-            className={classes.pills}
-          />
+          <Chip key={key} size="small" label={item} color="secondary" className={classes.pills} />
         ))}
       </Typography>
 
       {/*content*/}
-      <Typography variant="body2" component="div" gutterBottom>
-        {parse(article.content)}
-      </Typography>
+      <article>
+        <Typography variant="body2" className component="div" gutterBottom>
+          {parse(article.content)}
+        </Typography>
+      </article>
     </Fragment>
   );
 };
