@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Navbar from "./Navbar";
 import About from "./About";
 import Stack from "./Stack";
+import Footer from "./Footer";
 import Article from "../article/Article";
 import Project from "../project/Project";
 import Journal from "../journal/Journal";
@@ -56,6 +57,9 @@ const Welcome = () => {
             <Route exact path="/journal" component={Journal} />
           </Switch>
         </div>
+
+        {/* Footer */}
+        <Footer />
       </div>
     </ThemeProvider>
   );
