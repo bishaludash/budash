@@ -4,7 +4,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Navbar from "./Navbar";
 import About from "./About";
 import Stack from "./Stack";
-import Footer from "./Footer";
 import Article from "../article/Article";
 import Project from "../project/Project";
 import Journal from "../journal/Journal";
@@ -51,15 +50,12 @@ const Welcome = () => {
         <div className={classes.contentBody}>
           <Switch>
             <Route exact path="/" component={About} />
-            <Route exact path="/articles" component={Article} />
-            <Route exact path="/projects" component={Project} />
-            <Route exact path="/stack" component={Stack} />
-            <Route exact path="/journal" component={Journal} />
+            <Route path="/articles" component={Article} />
+            <Route path="/projects" component={Project} />
+            <Route path="/stack" component={Stack} />
+            <Route path="/journal" component={Journal} />
           </Switch>
         </div>
-
-        {/* Footer */}
-        <Footer />
       </div>
     </ThemeProvider>
   );

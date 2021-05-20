@@ -71,7 +71,7 @@ const Login = () => {
 
     setUser(data);
     localStorage.setItem("budash", JSON.stringify(data));
-    window.location.href='/dashboard';
+    window.location.href = "/dashboard";
   };
 
   if (loading) {
@@ -97,7 +97,12 @@ const Login = () => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate onSubmit={attemptLogin} autoComplete="off">
+          <form
+            className={classes.form}
+            noValidate
+            onSubmit={attemptLogin}
+            autoComplete="off"
+          >
             <TextField
               variant="outlined"
               margin="normal"
@@ -171,11 +176,10 @@ export default Login;
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
+      {"Copyright © "} {new Date().getFullYear()}{" "}
+      <Link color="inherit" href="https://budash.net/">
+        Budash.net
+      </Link>
       {"."}
     </Typography>
   );
