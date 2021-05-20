@@ -12,6 +12,9 @@ const useStyles = makeStyles({
     margin: "5px 0",
     marginBottom: "2rem",
   },
+  links: {
+    color: "#e57373",
+  },
 });
 
 const Stack = () => {
@@ -27,16 +30,25 @@ const Stack = () => {
       <ul className={classes.stack}>
         <li className={classes.stackList}>Sublime Text</li>
         <p className={classes.staclListDetails}>
-          Most productive text editing environment I've ever used. Light and
-          fast, just perfect for my low end device. Packages such as terminus
-          can make up for the missing integrated terminal
+          Light and fast, just perfect for my low end device. Packages such as
+          terminus can make up for the missing integrated terminal.
+          <div>
+            <a
+              href="https://github.com/bishaludas/SublimeForReactLaravel"
+              target="_blank"
+              className={classes.links}
+              rel="noreferrer"
+            >
+              My Sublime Setup
+            </a>
+          </div>
         </p>
 
         <li className={classes.stackList}>VS Code</li>
         <p className={classes.staclListDetails}>
-          If it was not for my low end device, I would use VS code for most of
-          my works. ie memory issues when spinning up docker instances. Love the
-          integrated terminal and feature rich extensions.
+          Most productive text editing environment I've ever used. Love the
+          integrated terminal and feature rich extensions. Only complain I have
+          is it consumes much more mremory.
         </p>
 
         <li className={classes.stackList}>Jupiter Notebook</li>
@@ -117,12 +129,22 @@ const Stack = () => {
         <li className={classes.stackList}>NestNepal</li>
         <p className={classes.staclListDetails}>
           NestNepals provides pretty good specs VPS as mind bogging price rate.
-          Currently using their server to host all my projects, Go check them
-          out!
+          Currently using their server to host all my projects.
+          <div>
+            <a
+              href="http://myaccount.nestnepal.com/aff.php?aff=7"
+              target="_blank"
+              className={classes.links}
+              rel="noreferrer"
+            >
+              Go check them out!
+            </a>
+          </div>
         </p>
         <li className={classes.stackList}>Mail Solution</li>
         <p className={classes.staclListDetails}>
-          I use Zoho for email because it provide a free business plan along with TLS standart encryption. 
+          I use Zoho for email because it provide a free business plan along
+          with TLS standart encryption.
         </p>
       </ul>
     </Fragment>
