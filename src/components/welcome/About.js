@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -15,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
   },
   links: {
     color: "inherit",
+    "&:hover": {
+      color: "#e57373",
+    },
   },
 }));
 
@@ -25,23 +29,29 @@ const About = () => {
       <p>
         Hi, I'm Bishal! I'm a full-stack engineer with a passion for building
         beautiful things from scratch. I've been building websites and saas
-        services since 2017.
+        services since 2017. I love working with React, Laravel, Flask and
+        RDBMS, more about them in{" "}
+        {
+          <Link to="/stack" className={classes.links}>
+            Stack
+          </Link>
+        }{" "}
+        section.
       </p>
 
       <p>
         Right now I'm working at{" "}
         <a
-          href="https://www.mobwizards.com/"
+          href="https://wolfmatrix.com/"
           target="_blank"
           className={classes.links}
           rel="noreferrer"
         >
-          Mobwizards
+          Wolfmatrix
         </a>
-        , a digital marketing company where I'm remodeling the old backoffice
-        using React.js and Laravel. The next phase is to make use of data
-        analytics to provide results that help in making better decision to the
-        company.
+        , software development company established in Nepal with the mission to
+        make every business better by understanding its requirement and
+        providing a custom system or technical solution and partnership.
       </p>
 
       <p>

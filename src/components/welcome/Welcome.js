@@ -7,7 +7,7 @@ import Stack from "./Stack";
 import Article from "../article/Article";
 import Project from "../project/Project";
 import Journal from "../journal/Journal";
-import axios from 'axios';
+import axios from "axios";
 
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -17,12 +17,12 @@ const Welcome = () => {
   const darkTheme = createMuiTheme({
     palette: {
       type: darkMode ? "dark" : "light",
-      primary:{
+      primary: {
         main: darkMode ? "#fff" : "#000",
       },
-      secondary:{
+      secondary: {
         main: "#e57373",
-      }
+      },
     },
     typography: {
       fontFamily: "ubuntu",
@@ -32,7 +32,7 @@ const Welcome = () => {
   const classes = useStyles();
   /*function to change the theme*/
   const changeTheme = () => {
-    console.log(darkMode)
+    console.log(darkMode);
     setDarkMode(!darkMode);
   };
 
@@ -44,16 +44,16 @@ const Welcome = () => {
       <CssBaseline />
       <div className={classes.container}>
         {/*welcome head*/}
-        <Navbar changeTheme={changeTheme} darkMode={darkMode}/>
+        <Navbar changeTheme={changeTheme} darkMode={darkMode} />
         {/*welcome body*/}
 
         <div className={classes.contentBody}>
           <Switch>
             <Route exact path="/" component={About} />
-            <Route path="/articles" component={Article} />
-            <Route path="/projects" component={Project} />
+            <Route exact path="/articles" component={Article} />
+            <Route exact path="/projects" component={Project} />
             <Route exact path="/stack" component={Stack} />
-            <Route path="/journal" component={Journal} />
+            <Route exact path="/journal" component={Journal} />
           </Switch>
         </div>
       </div>
