@@ -29,10 +29,10 @@ const Stack = () => {
       <h4>Development</h4>
       <ul className={classes.stack}>
         <li className={classes.stackList}>Sublime Text</li>
-        <p className={classes.staclListDetails}>
+        <div className={classes.staclListDetails}>
           Light and fast, just perfect for my low end device. Packages such as
           terminus can make up for the missing integrated terminal.
-          <div>
+          <p>
             <a
               href="https://github.com/bishaludas/SublimeForReactLaravel"
               target="_blank"
@@ -41,8 +41,8 @@ const Stack = () => {
             >
               My Sublime Setup
             </a>
-          </div>
-        </p>
+          </p>
+        </div>
 
         <li className={classes.stackList}>VS Code</li>
         <p className={classes.staclListDetails}>
@@ -127,10 +127,10 @@ const Stack = () => {
       <h4>Hosting</h4>
       <ul>
         <li className={classes.stackList}>NestNepal</li>
-        <p className={classes.staclListDetails}>
+        <div className={classes.staclListDetails}>
           NestNepals provides pretty good specs VPS as mind bogging price rate.
           Currently using their server to host all my projects.
-          <div>
+          <p>
             <a
               href="http://myaccount.nestnepal.com/aff.php?aff=7"
               target="_blank"
@@ -139,8 +139,8 @@ const Stack = () => {
             >
               Go check them out!
             </a>
-          </div>
-        </p>
+          </p>
+        </div>
         <li className={classes.stackList}>Mail Solution</li>
         <p className={classes.staclListDetails}>
           I use Zoho for email because it provide a free business plan along
