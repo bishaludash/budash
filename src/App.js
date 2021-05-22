@@ -1,4 +1,4 @@
-import React, { lazy } from "react";
+import React, { lazy, Suspense } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,13 +9,21 @@ import Welcome from "./components/welcome/Welcome";
 import Login from "./components/auth/Login";
 
 const Dashboard = lazy(() => import("./components/admin/Dashboard"));
+const renderLoader = () => <p>Loading...</p>;
 
 const App = () => {
   return (
     <Router>
       <Switch>
         <Route exact path="/login" component={Login}></Route>
-        <Route path="/dashboard" component={Dashboard}></Route>
+        <Route
+          path="/dashboard"
+          render={() => (
+            <Suspense fallback={renderLoader()}>
+              <Dashboard />
+            </Suspense>
+          )}
+        ></Route>
 
         <Route path="/" component={Welcome} />
         <Redirect to="/" />
