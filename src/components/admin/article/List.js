@@ -6,7 +6,6 @@ import { Paper } from "@material-ui/core";
 import axios from "axios";
 import SimpleSnackbar from "../../../utils/SimpleSnackbar";
 import Chip from "@material-ui/core/Chip";
-
 const List = () => {
   const url = "/article";
   const pageSize = parseInt(process.env.REACT_APP_paginateSize);

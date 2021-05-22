@@ -41,7 +41,11 @@ const List = () => {
       title: "Journal title",
       field: "title",
       render: (rowData) => (
-        <a href={`/journals/${rowData.slug_title}`} target="_blank" rel="noreferrer">
+        <a
+          href={`/journal/${rowData.slug_title}`}
+          target="_blank"
+          rel="noreferrer"
+        >
           {rowData.title}
         </a>
       ),

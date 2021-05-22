@@ -1,5 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
-import {  unstable_createMuiStrictModeTheme as createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import {
+  unstable_createMuiStrictModeTheme as createMuiTheme,
+  ThemeProvider,
+} from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { UserContext } from "../../context/UserContext";
@@ -56,7 +59,6 @@ const Dashboard = () => {
     "Authorization"
   ] = `${user.token_type} ${user.access_token}`;
 
-
   return (
     <ThemeProvider theme={Theme}>
       <div className={classes.root}>
@@ -68,7 +70,7 @@ const Dashboard = () => {
         {/*Content Wrapper*/}
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
-          <Container maxWidth="lg" className={classes.container}>
+          <Container maxWidth="xl" className={classes.container}>
             <SetBreadCrumbs />
             <Switch>
               <Route exact path="/dashboard" component={Board} />

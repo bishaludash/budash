@@ -11,7 +11,7 @@ import axios from "axios";
 import { getValidationErrors } from "../../../utils/FormValidator";
 import RichText from "../../../utils/RichText";
 import SimpleSnackbar from "../../../utils/SimpleSnackbar";
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const Create = () => {
   const url = "/article";
@@ -26,7 +26,7 @@ const Create = () => {
   const [error, setError] = useState({});
   const [toast, setToast] = useState(false);
 
-  const addArticle = async (e) => { 
+  const addArticle = async (e) => {
     e.preventDefault();
     setProgress(true);
     let res = await axios.post(url, article);
@@ -67,7 +67,7 @@ const Create = () => {
           </Grid>
 
           <Grid item xs={12}>
-          <TextField
+            <TextField
               required
               id="outlined-required"
               name="summary"
@@ -80,7 +80,7 @@ const Create = () => {
                 setArticle({ ...article, summary: e.target.value })
               }
             />
-            </Grid>
+          </Grid>
 
           {/*content*/}
           <Grid item xs={12}>
@@ -113,7 +113,6 @@ const Create = () => {
                 <MenuItem value="publish">Publish</MenuItem>
                 <MenuItem value="draft">Draft</MenuItem>
                 <MenuItem value="archive">Archive</MenuItem>
-                ))}
               </Select>
               <FormHelperText>{error.status ?? ""}</FormHelperText>
             </FormControl>
@@ -127,7 +126,7 @@ const Create = () => {
           color="primary"
           size="small"
         >
-          Submit {progress ? <CircularProgress className="progress"/> : ""}
+          Submit {progress ? <CircularProgress className="progress" /> : ""}
         </Button>
       </form>
     </div>
