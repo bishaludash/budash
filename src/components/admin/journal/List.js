@@ -29,7 +29,7 @@ const List = () => {
   const columns = useMemo(
     () => [
       {
-        Header: "Article title",
+        Header: "Journal title",
         accessor: "title",
         Cell: ({ row, value }) => (
           <a
