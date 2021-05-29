@@ -10,16 +10,21 @@ import Tooltip from "@material-ui/core/Tooltip";
 
 import ReactTable from "../../../utils/ReactTable";
 import SimpleSnackbar from "../../../utils/SimpleSnackbar";
+import DeleteModal from "../../../utils/DeleteModal";
 
 const List = () => {
   const url = "/article";
+  const match = useRouteMatch();
+  const history = useHistory();
+
   const [data, setData] = React.useState([]);
+  const [dataRange, setDataRange] = useState({ from: null, to: null });
   const [loading, setLoading] = React.useState(false);
   const [pageCount, setPageCount] = React.useState(0);
   const [message, setMessage] = useState(null);
-  const match = useRouteMatch();
   const [toast, setToast] = useState(false);
-  const history = useHistory();
+  const [currentItem, setCurrentItem] = useState({ slug: null, index: null });
+  const [handleDelete, setHandleDelete] = useState(false);
 
   const columns = useMemo(
     () => [
@@ -68,8 +73,12 @@ const List = () => {
               <IconButton
                 aria-label="delete"
                 size="small"
-                onClick={() => {
-                  console.log("clicked value");
+                onClick={(e) => {
+                  setHandleDelete(true);
+                  setCurrentItem({
+                    slug: row.original.slug_title,
+                    index: row.index,
+                  });
                 }}
                 className="mr-3"
               >
@@ -86,7 +95,7 @@ const List = () => {
   const fetchData = useCallback(async (pageIndex, pageSize) => {
     setLoading(true);
     const res = await axios.get(
-      `${url}?article?page=${pageIndex}&per_page=${pageSize}&all=yes`
+      `${url}?page=${pageIndex}&per_page=${pageSize}&all=yes`
     );
     if (!res.data.status) {
       setMessage(res.data.message);
@@ -94,9 +103,9 @@ const List = () => {
     }
 
     // set data to state
-    const { data } = res.data.data;
-    const { total } = res.data.data;
+    const { data, total, from, to } = res.data.data;
     setData(data);
+    setDataRange({ from, to, total });
 
     // set total items count
     setPageCount(Math.ceil(total / pageSize));
@@ -106,6 +115,13 @@ const List = () => {
   const deleteArticle = async (slug) => {
     console.log(slug);
     let res = await axios.delete(`/article/${slug}`);
+
+    // remove item from ui
+    let newData = [...data];
+    newData.splice(currentItem.index, 1);
+    setData(newData);
+
+    setHandleDelete(false);
     setToast(res.data.message);
   };
 
@@ -117,7 +133,12 @@ const List = () => {
     <div style={{ minHeight: "80vh" }}>
       {/*Toast Message*/}
       <SimpleSnackbar toast={toast} setToast={setToast} />
-
+      <DeleteModal
+        handleDelete={handleDelete}
+        setHandleDelete={setHandleDelete}
+        currentItem={currentItem}
+        deleteItem={deleteArticle}
+      />
       <h2>Article</h2>
 
       {/* Create Article button */}
@@ -136,6 +157,7 @@ const List = () => {
         fetchData={fetchData}
         loading={loading}
         pageCount={pageCount}
+        dataRange={dataRange}
       />
     </div>
   );

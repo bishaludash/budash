@@ -17,6 +17,7 @@ const ReactTable = ({
   fetchData,
   loading,
   pageCount: controlledPageCount,
+  dataRange,
 }) => {
   // Instantiate react table and fetch required values from the hook
   const {
@@ -50,7 +51,8 @@ const ReactTable = ({
   );
 
   useEffect(() => {
-    fetchData(pageIndex, pageSize);
+    // laravels page starts from 1 not 0
+    fetchData(pageIndex + 1, pageSize);
   }, [fetchData, pageIndex, pageSize]);
 
   // Render the UI for your table
@@ -118,7 +120,8 @@ const ReactTable = ({
             <span colSpan="10000">Loading...</span>
           ) : (
             <span colSpan="10000">
-              Showing {page.length} of ~{controlledPageCount * pageSize} results
+              Showing {dataRange.from} -{dataRange.to} of ~{dataRange.total}{" "}
+              results
             </span>
           )}
         </div>
