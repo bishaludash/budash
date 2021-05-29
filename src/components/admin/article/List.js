@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo } from "react";
-import Button from "@material-ui/core/Button";
 import { Link, useRouteMatch, useHistory } from "react-router-dom";
 import axios from "axios";
+import Button from "@material-ui/core/Button";
 import Chip from "@material-ui/core/Chip";
 import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/Edit";
@@ -139,7 +139,7 @@ const List = () => {
         currentItem={currentItem}
         deleteItem={deleteArticle}
       />
-      <h2>Article</h2>
+      <h2 className="mb-2">Article</h2>
 
       {/* Create Article button */}
       <div style={{ padding: "0px 10px", marginBottom: "5px" }}>
