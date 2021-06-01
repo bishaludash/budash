@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useRouteMatch, useLocation } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
 import Typography from "@material-ui/core/Typography";
@@ -10,8 +10,9 @@ import Chip from "@material-ui/core/Chip";
 
 const ListArticle = () => {
   const classes = useStyles();
-  let url = "/article";
+  const [url, setUrl] = useState("/article");
   const match = useRouteMatch();
+  const location = useLocation();
   const [articles, setArticles] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -21,8 +22,7 @@ const ListArticle = () => {
   useEffect(() => {
     getArticles(url);
     // eslint-disable-next-line
-  }, []);
-
+  }, [url]);
   const getArticles = async (url) => {
     let res = await axios.get(url);
     const { data, status, message } = res.data;
@@ -60,9 +60,22 @@ const ListArticle = () => {
           className={`${classes.chipStyle} ml-1`}
           label={item.trim()}
           size="small"
+          onClick={(e) => setUrl(`/article?tag=${item.trim()}`)}
         />
       </Link>
     ));
+  };
+
+  const clearTagsFilter = () => {
+    return (
+      <Link to={"/articles"} className={classes.links}>
+        <Chip
+          className={`${classes.chipStyle} mb-3`}
+          label="Clear Filter"
+          onClick={(e) => setUrl(`/article`)}
+        />
+      </Link>
+    );
   };
 
   if (loading) {
@@ -79,6 +92,9 @@ const ListArticle = () => {
 
   return (
     <Fragment>
+      {/* Clear tag filter */}
+      {location.search !== "" ? clearTagsFilter() : null}
+
       {/*Article start*/}
       {articles.data.map((item, key) => (
         <div className={classes.article} key={key}>
