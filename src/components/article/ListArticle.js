@@ -55,6 +55,7 @@ const ListArticle = () => {
         to={`${match.path}?tag=${item.trim()}`}
         key={key}
         className={classes.links}
+        style={{ textTransform: "capitalize" }}
       >
         <Chip
           className={`${classes.chipStyle} ml-1`}
