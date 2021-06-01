@@ -19,6 +19,7 @@ const Create = () => {
     title: "",
     summary: "",
     content: "",
+    tags: "",
     status: "",
   };
   const [article, setArticle] = useState(defaultArticle);
@@ -93,6 +94,21 @@ const Create = () => {
             </InputLabel>
             <FormHelperText error>{error.content ?? ""}</FormHelperText>
             <RichText value={article} setValue={setArticle} />
+          </Grid>
+
+          {/* Tags */}
+          <Grid item xs={12}>
+            <TextField
+              required
+              id="outlined-required"
+              name="summary"
+              fullWidth
+              label="Tags"
+              error={error.tags ? true : false}
+              helperText={error.tags ?? ""}
+              value={article.tags}
+              onChange={(e) => setArticle({ ...article, tags: e.target.value })}
+            />
           </Grid>
 
           {/*Status*/}

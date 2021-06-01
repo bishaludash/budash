@@ -19,8 +19,9 @@ const Edit = () => {
   let url = `/article/${slug}`;
   const defaultArticle = {
     title: "",
-    summary:"",
+    summary: "",
     content: "",
+    tags: "",
     status: "",
   };
 
@@ -131,6 +132,21 @@ const Edit = () => {
             <RichText value={article} setValue={setArticle} />
           </Grid>
 
+          {/* Tags */}
+          <Grid item xs={12}>
+            <TextField
+              required
+              id="outlined-required"
+              name="summary"
+              fullWidth
+              label="Tags"
+              error={error.tags ? true : false}
+              helperText={error.tags ?? ""}
+              value={article.tags}
+              onChange={(e) => setArticle({ ...article, tags: e.target.value })}
+            />
+          </Grid>
+
           {/*Status*/}
           <Grid item xs={12} sm={4}>
             <FormControl fullWidth error={error.status ? true : false}>
@@ -149,7 +165,6 @@ const Edit = () => {
                 <MenuItem value="publish">Publish</MenuItem>
                 <MenuItem value="draft">Draft</MenuItem>
                 <MenuItem value="archive">Archive</MenuItem>
-                ))}
               </Select>
               <FormHelperText>{error.status ?? ""}</FormHelperText>
             </FormControl>
