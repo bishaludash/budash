@@ -71,7 +71,7 @@ const Login = () => {
 
     setUser(data);
     localStorage.setItem("budash", JSON.stringify(data));
-    window.location.href = "/dashboard";
+    window.location.href = `${process.env.REACT_APP_PUBLIC_URL}/dashboard"`;
   };
 
   if (loading) {
