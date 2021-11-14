@@ -13,7 +13,7 @@ const renderLoader = () => <p>Loading...</p>;
 
 const App = () => {
   return (
-    <Router basename="/budash">
+    <Router>
       <Switch>
         <Route exact path="/login" component={Login}></Route>
         <Route
